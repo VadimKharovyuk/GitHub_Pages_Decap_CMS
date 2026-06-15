@@ -87,6 +87,48 @@ https://YOUR_NAME.github.io/GitHub_Pages_Decap_CMS/admin/
 
 ---
 
+## 🐛 Часті помилки та рішення
+
+**`client_id=undefined` в URL попапу**
+Змінні `CLIENT_ID` / `CLIENT_SECRET` не додані у Cloudflare Worker.
+→ `Workers & Pages → твій worker → Settings → Variables and Secrets → Add`
+
+---
+
+**`Branch not found`**
+У `config.yml` вказана гілка `main`, але репозиторій використовує `master` (або навпаки).
+→ Перевір назву гілки в репо та встав правильну у `config.yml` → `branch: master`
+
+---
+
+**Попап відкривається і одразу закривається — залишаєшся на тій же сторінці**
+Браузер блокує попапи для сайту.
+→ Натисни іконку заблокованого попапу в адресному рядку → "Завжди дозволяти для цього сайту"
+
+---
+
+**`404 Not Found` на `/auth` або `/callback`**
+Worker підключений до Git репо замість inline-редактора — змінні не читаються.
+→ Створи новий Worker через "Start with Hello World", встав код вручну, додай змінні у Settings
+
+---
+
+**Фото не відображається на сайті**
+`public_folder` у `config.yml` не враховує підпапку GitHub Pages.
+→ Встав правильний шлях:
+```yaml
+public_folder: /GitHub_Pages_Decap_CMS/public/uploads
+```
+Після цього відкрий товар в адмін-панелі та натисни Save — шлях до фото оновиться в JSON.
+
+---
+
+**`API_ERROR: Branch not found` при завантаженні фото**
+Папки `products/` або `public/uploads/` не існують у репозиторії.
+→ Створи їх через GitHub UI: `Add file → Create new file → products/.gitkeep` та `public/uploads/.gitkeep`
+
+---
+
 ## 🔐 Cloudflare Worker — код OAuth проксі
 
 ```javascript
