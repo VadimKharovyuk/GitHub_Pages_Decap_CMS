@@ -1,11 +1,125 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decap CMS Demo</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: sans-serif; background: #f7f9fc; color: #222; }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #2a7ae2, #1a4fa0);
+            color: white; text-align: center; padding: 80px 20px;
+        }
+        .hero h1 { font-size: 2.4rem; margin-bottom: 12px; }
+        .hero p  { font-size: 1.1rem; opacity: 0.85; margin-bottom: 32px; }
+        .btn {
+            display: inline-block; padding: 14px 36px; background: white;
+            color: #2a7ae2; border-radius: 30px; font-weight: bold;
+            text-decoration: none; font-size: 1rem; transition: transform 0.2s;
+        }
+        .btn:hover { transform: scale(1.05); }
+
+        /* Секция "Як це працює" */
+        .section { max-width: 1000px; margin: 60px auto; padding: 0 20px; }
+        .section h2 { font-size: 1.7rem; margin-bottom: 30px; text-align: center; }
+
+        /* Карточки технологии */
+        .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+        .card {
+            background: white; border-radius: 12px; padding: 24px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.07); text-align: center;
+        }
+        .card .icon { font-size: 2.2rem; margin-bottom: 12px; }
+        .card h3 { font-size: 1rem; margin-bottom: 8px; color: #2a7ae2; }
+        .card p  { font-size: 0.85rem; color: #666; line-height: 1.5; }
+
+        /* Список шагов */
+        .steps { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 2px 10px rgba(0,0,0,0.07); }
+        .steps ol { padding-left: 22px; }
+        .steps li { padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 0.95rem; line-height: 1.5; }
+        .steps li:last-child { border-bottom: none; }
+        .steps li strong { color: #2a7ae2; }
+
+        /* CTA */
+        .cta { text-align: center; padding: 60px 20px; }
+        .cta h2 { font-size: 1.5rem; margin-bottom: 16px; }
+        .cta p  { color: #666; margin-bottom: 28px; }
+        .btn-primary {
+            display: inline-block; padding: 14px 40px; background: #2a7ae2;
+            color: white; border-radius: 30px; font-weight: bold;
+            text-decoration: none; font-size: 1rem; transition: background 0.2s;
+        }
+        .btn-primary:hover { background: #1a4fa0; }
+
+        footer { text-align: center; padding: 20px; color: #aaa; font-size: 0.8rem; }
+    </style>
 </head>
 <body>
-<h2 style="text-align: center"> Home Page</h2>
-<a href="products.html">Товари</a>
+
+<!-- Hero -->
+<div class="hero">
+    <h1>Decap CMS + GitHub Pages</h1>
+    <p>Безкоштовний магазин без бекенду — контент зберігається прямо в GitHub репозиторії</p>
+    <a href="products.html" class="btn">🛍 Переглянути товари</a>
+</div>
+
+<!-- Карточки технологии -->
+<div class="section">
+    <h2>Як це працює</h2>
+    <div class="cards">
+        <div class="card">
+            <div class="icon">📝</div>
+            <h3>Decap CMS</h3>
+            <p>Адмін-панель прямо в браузері. Заповнюєш форму — CMS робить коміт у GitHub</p>
+        </div>
+        <div class="card">
+            <div class="icon">🐙</div>
+            <h3>GitHub Repository</h3>
+            <p>Товари зберігаються як JSON файли, фото — у папці <code>public/uploads</code></p>
+        </div>
+        <div class="card">
+            <div class="icon">🌐</div>
+            <h3>GitHub Pages</h3>
+            <p>Безкоштовний хостинг статичних файлів прямо з репозиторію</p>
+        </div>
+        <div class="card">
+            <div class="icon">🔐</div>
+            <h3>Cloudflare Workers</h3>
+            <p>OAuth проксі для авторизації через GitHub — замінює бекенд-сервер</p>
+        </div>
+    </div>
+</div>
+
+<!-- Список шагов -->
+<div class="section">
+    <h2>Кроки реалізації</h2>
+    <div class="steps">
+        <ol>
+            <li><strong>GitHub репозиторій</strong> — створюєш репо, вмикаєш GitHub Pages</li>
+            <li><strong>Decap CMS</strong> — додаєш папку <code>admin/</code> з <code>index.html</code> та <code>config.yml</code></li>
+            <li><strong>GitHub OAuth App</strong> — реєструєш застосунок для авторизації</li>
+            <li><strong>Cloudflare Workers</strong> — деплоїш OAuth проксі з Client ID та Secret</li>
+            <li><strong>config.yml</strong> — налаштовуєш колекцію товарів з потрібними полями</li>
+            <li><strong>Admin панель</strong> — заходиш на <code>/admin</code>, логінишся через GitHub</li>
+            <li><strong>Додаєш товари</strong> — CMS комітить JSON + фото в репозиторій</li>
+            <li><strong>Фронтенд</strong> — JavaScript завантажує товари через GitHub API і відображає на сайті</li>
+        </ol>
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="cta">
+    <h2>Готові переглянути товари?</h2>
+    <p>Всі товари завантажуються напряму з GitHub репозиторію</p>
+    <a href="products.html" class="btn-primary">🛍 До каталогу товарів</a>
+</div>
+
+<footer>
+    Powered by Decap CMS + GitHub Pages + Cloudflare Workers
+</footer>
+
 </body>
 </html>
