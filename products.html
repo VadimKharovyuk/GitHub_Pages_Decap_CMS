@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Товари</title>
+    <style>
+        body { font-family: sans-serif; max-width: 1100px; margin: 0 auto; padding: 20px; }
+        h1 { text-align: center; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
+        .card { border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        .card img { width: 100%; height: 200px; object-fit: cover; }
+        .card-body { padding: 15px; }
+        .card-body h3 { margin: 0 0 8px; }
+        .price { font-size: 1.2rem; font-weight: bold; color: #2a7ae2; }
+        .category { font-size: 0.85rem; color: #888; margin-bottom: 8px; }
+        .description { font-size: 0.9rem; color: #444; }
+        .loading { text-align: center; padding: 40px; color: #888; }
+        nav { margin-bottom: 20px; }
+        nav a { margin-right: 15px; text-decoration: none; color: #2a7ae2; }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="index.html">← Головна</a>
+    <a href="admin/">Admin</a>
+</nav>
+
+<h1>Товари</h1>
+<div id="products" class="grid">
+    <p class="loading">Завантаження...</p>
+</div>
+
+<script>
+    const REPO = 'VadimKharovyuk/GitHub_Pages_Decap_CMS';
+    const API  = `https://api.github.com/repos/${REPO}/contents/products`;
+
+    async function loadProducts() {
+        const container = document.getElementById('products');
+        try {
+            const res   = await fetch(API);
+            const files = await res.json();
+
+            if (!Array.isArray(files) || files.length === 0) {
+                container.innerHTML = '<p class="loading">Товарів поки немає.</p>';
+                return;
+            }
+
+            const products = await Promise.all(
+                files
+                    .filter(f => f.name.endsWith('.json'))
+                    .map(f => fetch(f.download_url).then(r => r.json()))
+            );
+
+            container.innerHTML = products.map(p => `
+          <div class="card">
+            ${p.photo ? `<img src="${p.photo}" alt="${p.name}" />` : ''}
+            <div class="card-body">
+              <div class="category">${p.category || ''}</div>
+              <h3>${p.name}</h3>
+              <div class="price">$${p.price}</div>
+              <div class="description">${p.description || ''}</div>
+            </div>
+          </div>
+        `).join('');
+
+        } catch (e) {
+            container.innerHTML = '<p class="loading">Помилка завантаження товарів.</p>';
+        }
+    }
+
+    loadProducts();
+</script>
+</body>
+</html>
