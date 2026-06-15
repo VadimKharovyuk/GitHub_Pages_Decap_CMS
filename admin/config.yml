@@ -5,7 +5,7 @@ backend:
   base_url: https://snowy-meadow-a6e0.vadimandreevic58.workers.dev
 
 media_folder: public/uploads
-public_folder: /uploads
+public_folder: /GitHub_Pages_Decap_CMS/public/uploads
 
 collections:
   - name: products
