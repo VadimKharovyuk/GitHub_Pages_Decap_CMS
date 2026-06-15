@@ -1,0 +1,21 @@
+backend:
+  name: github
+  repo: VadimKharovyuk/GitHub_Pages_Decap_CMS
+  branch: main
+  base_url: https://decap-oauth.vadimandreevic58.workers.dev
+
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: products
+    label: Товары
+    folder: products
+    create: true
+    format: json
+    fields:
+      - { name: name,        label: Название,  widget: string }
+      - { name: price,       label: Цена,       widget: number }
+      - { name: category,    label: Категория,  widget: string }
+      - { name: description, label: Описание,   widget: text   }
+      - { name: photo,       label: Фото,       widget: image  }
