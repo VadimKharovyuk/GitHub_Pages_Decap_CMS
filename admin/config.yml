@@ -1,7 +1,7 @@
 backend:
   name: github
   repo: VadimKharovyuk/GitHub_Pages_Decap_CMS
-  branch: main
+  branch: master
   base_url: https://snowy-meadow-a6e0.vadimandreevic58.workers.dev
 
 media_folder: public/uploads
